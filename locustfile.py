@@ -6,9 +6,6 @@ import os
 
 from localconfig import hostname, username, password
 
-def login(l):
-    l.client.post("/login", {"username":"ellen_key", "password":"education"}, verify=False)
-
 def index(l):
     l.client.get("/")
     l.client.get("/css/main.css")
