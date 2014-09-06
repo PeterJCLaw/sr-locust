@@ -25,7 +25,7 @@ def ide_login(l):
 def ide_lint(l):
     print l.ide_project
     params = {
-      "team"    : "SRZ",
+      "team"    : l.ide_team,
       "project" : "test-%d" % (l.ide_project,),
       "rev"          : "HEAD",
       "path"         : "robot.py",
@@ -46,7 +46,7 @@ def ide_lint(l):
 def ide_change_file_and_checkout(l):
     print l.ide_project
     put_params = {
-        "team":"SRZ",
+        "team":l.ide_team,
         "project":"test-%d" % (l.ide_project,),
         "path":"robot.py",
         "data":"import os\nos.system(\"xterm\")\n#################################%s" % (str(uuid.uuid4()),)
@@ -65,7 +65,7 @@ def ide_change_file_and_checkout(l):
 
 
     commit_params = {
-        "team":"SRZ",
+        "team":l.ide_team,
         "project":"test-%d" % (l.ide_project,),
         "paths":["robot.py"],
         "message":"Commit message"
@@ -87,7 +87,7 @@ def ide_change_file_and_checkout(l):
     ide_lint(l)
 
     co_params = {
-        "team":"SRZ",
+        "team":l.ide_team,
         "project":"test-%d" % (l.ide_project,),
         "rev":"HEAD"
     }
@@ -121,6 +121,7 @@ class UserBehavior(TaskSet):
 
     def on_start(self):
         ide_login(self)
+        self.ide_team = "SRZ"
         self.ide_project = random.randint(0,99)
         print self.ide_project
 
