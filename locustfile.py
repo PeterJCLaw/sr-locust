@@ -1,13 +1,10 @@
 from locust import HttpLocust, TaskSet
 import uuid
 import random
-import getpass
 import json
 import os
 
-username = "sphippen"
-print "Please enter your sr password"
-password = getpass.getpass("Enter your SR password> ")
+from localconfig import hostname, username, password
 
 def login(l):
     l.client.post("/login", {"username":"ellen_key", "password":"education"}, verify=False)
@@ -132,7 +129,7 @@ class UserBehavior(TaskSet):
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
-    host = "https://studentrobotics.org"
+    host = "https://" + hostname
     min_wait=5000
     max_wait=9000
 
