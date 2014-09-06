@@ -121,7 +121,7 @@ class UserBehavior(TaskSet):
 
     def on_start(self):
         ide_login(self)
-        self.ide_team = "SRZ"
+        self.ide_team = "ABC"
         self.ide_project = random.randint(0,99)
         print self.ide_project
 
