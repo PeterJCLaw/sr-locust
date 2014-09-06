@@ -18,9 +18,10 @@ def ide_login(l):
     l.client.get("/ide/", verify=False)
     auth_json = json.dumps({"username":username, "password":password})
     with l.client.post("/ide/control.php/auth/authenticate", auth_json, catch_response=True, verify=False) as response:
-        if "tester" not in response.content and "you are already authenticated" not in response.content:
+        if "display-name" not in response.content and "you are already authenticated" not in response.content:
+            # An error that isn't already-authed
             print response.content
-            response.failure("Bad login response")
+            response.failure("Bad login response: "+response.content)
 
 def ide_lint(l):
     print l.ide_project
