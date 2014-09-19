@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -d bin ]
+then
+    echo "Virtualenv already looks initialised!"
+    exit 1
+fi
+
+virtualenv init .
+source bin/activate
+pip install locustio
