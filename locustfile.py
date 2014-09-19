@@ -1,8 +1,8 @@
 
-from locust import HttpLocust, TaskSet
-import uuid
-import random
 import json
+from locust import HttpLocust, TaskSet
+import random
+import uuid
 
 from localconfig import hostname, username, password
 
