@@ -1,8 +1,8 @@
+
 from locust import HttpLocust, TaskSet
 import uuid
 import random
 import json
-import os
 
 from localconfig import hostname, username, password
 
