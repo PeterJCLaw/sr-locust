@@ -1,0 +1,5 @@
+#!/bin/sh
+rm -f /tmp/ide-log
+rm -rf /var/www/html/ide/repos/*/*
+rm -rf /var/www/html/ide/zips/*
+echo "Removed IDE repos and zips."

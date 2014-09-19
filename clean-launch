@@ -1,0 +1,3 @@
+#!/bin/sh
+tail -n +2 blank-ide | ssh root@f17-vm
+./create-projects.py && ./bin/locust
