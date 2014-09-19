@@ -6,6 +6,10 @@ import uuid
 
 from localconfig import hostname, username, password
 
+def ide_post(l, endpoint, params):
+    params_json = json.dumps(params)
+    return l.client.post("/ide/control.php/" + endpoint, params_json, catch_response=True, verify=False)
+
 def index(l):
     l.client.get("/")
     l.client.get("/css/main.css")
@@ -16,8 +20,8 @@ def index(l):
 
 def ide_login(l):
     l.client.get("/ide/", verify=False)
-    auth_json = json.dumps({"username":username, "password":password})
-    with l.client.post("/ide/control.php/auth/authenticate", auth_json, catch_response=True, verify=False) as response:
+    auth_params = {"username":username, "password":password}
+    with ide_post(l, "auth/authenticate", auth_params) as response:
         if "display-name" not in response.content and "you are already authenticated" not in response.content:
             # An error that isn't already-authed
             print response.content
@@ -33,9 +37,7 @@ def ide_lint(l):
       "autosave"     : False,
     }
 
-    params_json = json.dumps(params)
-
-    with l.client.post("/ide/control.php/file/lint", params_json, catch_response=True, verify=False) as response:
+    with ide_post(l, "file/lint", params) as response:
         if "errors" not in response.content:
             print response.content
             response.failure(response.content)
@@ -53,9 +55,7 @@ def ide_change_file_and_checkout(l):
         "data":"import os\nos.system(\"xterm\")\n#################################%s" % (str(uuid.uuid4()),)
     }
 
-    put_json = json.dumps(put_params)
-
-    with l.client.post("/ide/control.php/file/put", put_json, catch_response=True, verify=False) as response:
+    with ide_post(l, "file/put", put_params) as response:
         if "debug" not in response.content:
             print response.content
             response.failure(response.content)
@@ -74,9 +74,7 @@ def ide_change_file_and_checkout(l):
 
     print commit_params
 
-    commit_json = json.dumps(commit_params)
-
-    with l.client.post("/ide/control.php/proj/commit", commit_json, catch_response=True, verify=False) as response:
+    with ide_post(l, "proj/commit", commit_params) as response:
         if "merges" not in response.content:
             print response.content
             response.failure(response.content)
@@ -93,9 +91,7 @@ def ide_change_file_and_checkout(l):
         "rev":"HEAD"
     }
 
-    co_json = json.dumps(co_params)
-
-    with l.client.post("/ide/control.php/proj/co", co_json, catch_response=True, verify=False) as response:
+    with ide_post(l, "proj/co", co_params) as response:
         if "url" not in response.content:
             print response.content
             response.failure(response.content)
