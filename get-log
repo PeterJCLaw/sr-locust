@@ -1,0 +1,2 @@
+#!/bin/sh
+scp f17-vm:/tmp/ide-log .
