@@ -27,7 +27,7 @@ def ide_lint(l):
     print l.ide_project
     params = {
       "team"    : l.ide_team,
-      "project" : "test-%d" % (l.ide_project,),
+      "project" : l.ide_project,
       "rev"          : "HEAD",
       "path"         : "robot.py",
       "autosave"     : False,
@@ -48,7 +48,7 @@ def ide_change_file_and_checkout(l):
     print l.ide_project
     put_params = {
         "team":l.ide_team,
-        "project":"test-%d" % (l.ide_project,),
+        "project":l.ide_project,
         "path":"robot.py",
         "data":"import os\nos.system(\"xterm\")\n#################################%s" % (str(uuid.uuid4()),)
     }
@@ -67,7 +67,7 @@ def ide_change_file_and_checkout(l):
 
     commit_params = {
         "team":l.ide_team,
-        "project":"test-%d" % (l.ide_project,),
+        "project":l.ide_project,
         "paths":["robot.py"],
         "message":"Commit message"
     }
@@ -89,7 +89,7 @@ def ide_change_file_and_checkout(l):
 
     co_params = {
         "team":l.ide_team,
-        "project":"test-%d" % (l.ide_project,),
+        "project":l.ide_project,
         "rev":"HEAD"
     }
 
@@ -123,7 +123,8 @@ class UserBehavior(TaskSet):
     def on_start(self):
         ide_login(self)
         self.ide_team = "ABC"
-        self.ide_project = random.randint(0,99)
+        proj_num = random.randint(0,99)
+        self.ide_project = "test-%d" % (proj_num,)
         print self.ide_project
 
 class WebsiteUser(HttpLocust):
