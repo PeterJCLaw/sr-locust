@@ -3,9 +3,9 @@
 import json
 import requests
 
-from locustfile import username, password
+from localconfig import hostname, username, password
 
-host = "https://f17-vm.local"
+host = "https://" + hostname
 baseurl = host + "/ide/control.php/"
 
 def ide_post(s, endpoint, params):

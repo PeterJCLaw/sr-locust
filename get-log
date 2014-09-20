@@ -1,2 +1,6 @@
 #!/bin/sh
-scp f17-vm:/tmp/ide-log .
+hostname() {
+    python -c "import localconfig; print localconfig.hostname"
+}
+
+scp $(hostname):/tmp/ide-log .
